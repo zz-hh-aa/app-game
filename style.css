@@ -2,6 +2,7 @@ body {
     background: url(images/ferns-bg.png);
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 h1 {
@@ -9,9 +10,16 @@ h1 {
     font-family: monospace;
     text-align: center;
     font-size: xx-large;
-    flex: 1;
 }
 
+.container {
+    margin: auto;
+    align-self: center;
+    display: flex;
+    width: 50%;
+}
+
+/* instructions modal */
 .modal {
     align-self: center;
     display:flex;
@@ -36,15 +44,4 @@ h1 {
     font-family: monospace;
     align-self: center;
     padding: 1%;
-}
-
-.soil {
-    color: rgb(70, 42, 27);
-    min-width: 50px;
-    min-height: 20px;
-}
-
-.seconds {
-    color: rgb(230, 230, 230);
-    font-family: monospace; 
 }
