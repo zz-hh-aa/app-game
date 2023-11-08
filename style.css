@@ -17,25 +17,29 @@ h1 {
     align-self: center;
     display: flex;
     width: 50%;
+    justify-content: center;
 }
 
 /* instructions modal */
 .modal {
     align-self: center;
-    display:flex;
+    display: flex;
     flex-direction: column;
     background-color: aliceblue;
     padding: 20px;
     opacity: 0.7;
     max-width: 50%;
-    margin-top: 10%;
+    margin-top: 15%;
+    z-index: 2; 
+    position: absolute;
 }
 
 .modal_content {
-    color: rgb(146, 200, 152);
+    color: rgb(75, 125, 81);
     font-family: monospace;
     margin: 3%;
     text-align: center;
+    z-index: 3; 
 }
 
 .modal_close {
@@ -44,4 +48,24 @@ h1 {
     font-family: monospace;
     align-self: center;
     padding: 1%;
+    border: none;
+}
+
+.modal_close:hover {
+    cursor: pointer;
+}
+
+/* game board */
+#board {
+    z-index: 1;
+}
+
+footer {
+    align-self: bottom;
+    color: rgb(146, 200, 152);
+    font-family: monospace;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-left: 2%;
 }
