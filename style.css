@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -20,7 +21,7 @@ h1 {
     justify-content: center;
 }
 
-/* instructions modal */
+/* modals */
 .modal {
     align-self: center;
     display: flex;
@@ -53,6 +54,11 @@ h1 {
 
 .modal_close:hover {
     cursor: pointer;
+}
+
+/* game over modal */
+#gameOverModal {
+    display: none;
 }
 
 /* game board */

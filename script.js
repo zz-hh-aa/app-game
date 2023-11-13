@@ -1,5 +1,5 @@
 // INSTRUCTIONS MODAL
-var modal = document.getElementById('instructionsModal');
+var instrModal = document.getElementById('instructionsModal');
 
 // open the instructions modal
 document.addEventListener('DOMContentLoaded', function () {
@@ -8,10 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
    });
   
 // close the modal when button clicked
-   document.getElementById('closeModal').addEventListener('click', function () {
-     modal.style.display = 'none';
-    //  overlay.style.display = 'none';
+   document.getElementById('startGame').addEventListener('click', function () {
+    setInterval(placePlastic, 5000) // new plastic every 5 seconds
+    instrModal.style.display = 'none';
 });
+
+// load game over modal but hide it
+var gameOverModal = document.getElementById('gameOverModal');
+gameOverModal.style.display = 'none';
 
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -53,6 +57,9 @@ plasticImg.src = 'images\\waterbottle.png'
 // create variable for end conditions
 var gameOver = false;
 
+// initialise time counter
+var time = 0;
+
 // ---------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // CREATE GAME FUNCTIONS
@@ -66,7 +73,7 @@ window.onload = function() {
   placeFood();
   document.addEventListener("keyup", changeDirection)
   setInterval(update, 1000/10); // reloads 10 times a second
-  setInterval(placePlastic, 5000); // reloads plastic every 5 seconds
+  setInterval(countTime, 1000);
 }
 
 // update game board through play
@@ -75,6 +82,7 @@ function update() {
   context.fillStyle="saddlebrown";
   context.fillRect(0, 0, board.width, board.height);
   context.drawImage(foodImg, foodX, foodY, blockSize, blockSize);
+
   for (var i = 0; i < plasticBottles.length; i++) {
     context.drawImage(plasticImg, plasticBottles[i].x, plasticBottles[i].y, blockSize, blockSize);
   }
@@ -94,20 +102,22 @@ function update() {
     wormBody[0] = [wormX, wormY];
   }
 
-  // draw worm
-  context.fillStyle = "salmon";
-  context.strokeStyle = "black";
-  context.lineWidth = 1;
-  wormX += velocityX * blockSize;
-  wormY += velocityY * blockSize;
-  context.fillRect(wormX, wormY, blockSize, blockSize);
-  context.strokeRect(wormX, wormY, blockSize, blockSize);
+  if (!gameOver) {
+    // draw worm
+    context.fillStyle = "salmon";
+    context.strokeStyle = "black";
+    context.lineWidth = 1;
+    wormX += velocityX * blockSize;
+    wormY += velocityY * blockSize;
+    context.fillRect(wormX, wormY, blockSize, blockSize);
+    context.strokeRect(wormX, wormY, blockSize, blockSize);
 
-  // draw growing worm body
-  for (let i = 0; i < wormBody.length; i++) {
-    context.fillRect(wormBody[i][0], wormBody[i][1], blockSize, blockSize);
-    context.strokeRect(wormBody[i][0], wormBody[i][1], blockSize, blockSize);
-  }
+    // draw growing worm body
+    for (let i = 0; i < wormBody.length; i++) {
+        context.fillRect(wormBody[i][0], wormBody[i][1], blockSize, blockSize);
+        context.strokeRect(wormBody[i][0], wormBody[i][1], blockSize, blockSize);
+    }
+}
 
   // end condition (outside of game board)
   if (wormX < 0 || wormX > cols * blockSize || wormY < 0 || wormY > rows * blockSize) {
@@ -129,10 +139,19 @@ function update() {
 
   // handle end of game
   if (gameOver) {
-    alert("Game over! Click 'OK' to play again. (It might take some time to reload.)");
-    window.location.reload();
+    // show second counter
+    document.getElementById("counter").innerText = time;
+
+    // show gameOverModal
+    document.getElementById('gameOverModal').style.display = 'block';
+
+    // close the modal when button clicked
+    document.getElementById('reloadModal').addEventListener('click', function () {
+        window.location.reload();
+    });
+    }
   }
-}
+  
 
 // function for worm changing direction--cannot go back on itself
 function changeDirection(e) {
@@ -179,7 +198,11 @@ function placePlastic() {
     }
   }
 
+  if (gameOver) {
+  }
+  else {
   plasticBottles.push({x,y});
+  }
 }
 
 // get random food image function
@@ -189,3 +212,11 @@ function getRandomFoodImage() {
   return randomIndex === 0 ? foodImg1 : foodImg2;
 }
 
+// counter function
+function countTime() {
+  if (gameOver) {
+  }
+  else {
+    time ++;
+  }
+}
