@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // close the modal when button clicked
    document.getElementById('startGame').addEventListener('click', function () {
     setInterval(placePlastic, 5000) // new plastic every 5 seconds
+    setInterval(countTime, 1000);
     instrModal.style.display = 'none';
 });
 
@@ -73,7 +74,6 @@ window.onload = function() {
   placeFood();
   document.addEventListener("keyup", changeDirection)
   setInterval(update, 1000/10); // reloads 10 times a second
-  setInterval(countTime, 1000);
 }
 
 // update game board through play
